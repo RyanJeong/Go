@@ -11,9 +11,88 @@ export PATH=$PATH:$GOBIN
 
 $ cd $GOPATH/src/github.com/username/go
 $ git init
-```
-* Windows(추가예정)<br>
 
+// vim-go 설정
+// 1. pathogen 설치
+$ mkdir -p ~/.vim/autoload ~
+/.vim/bundle
+$ cd ~/.vim/autoload
+$ -curl -LSso pathogen.vim https://tpo.pe/pathogen.vim
+
+// 2. .vimrc 파일 수정
+$ vi ~/.vimrc
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+// 3. vim-go 설치
+$ cd ~/.vim/bundle
+$ git clone https://github.com/fatih/vim-go.git
+
+// 4. mercurial 설치
+$ apt-get install mercurial
+
+// 5. vim 실행 후 :GoInstallBinaries 수행
+$ vim
+:GoInstallBinaries
+
+// 6. 자동완성 기능 추가
+$ apt-get install cmake
+$ apt-get install python-dev
+$ cd ~/.vim/bundle
+$ git clone https://github.com/Valloric/YouCompleteMe.git
+$ cd YouCompleteMe
+$ ./install.sh
+
+// 7. TagBar 설치
+$ apt-get install ctags
+$ cd ~/.vim/bundle
+$ git clone https://github.com/majutsushi/tagbar.git
+
+// 8. 파일 네비게이션 설정
+$ cd ~/.vim/bundle
+$ git clone https://github.com/scrooloose/nerdtree.git 
+
+// 9. 단축키 지정
+$ vi ~/.vimrc
+set ts=4
+ 
+map <F8> :NERDTreeToggle<CR>
+map <F2> :GoDef<CR>
+map <F4> :TagbarToggle<CR>
+```
+* vim-go 주요 기능
+| Command | 설명 |
+|:--------|:--------|
+| :GoRun | 코드 실행 |
+| :GoBuild | 코드 빌드 |
+| :GoErrCheck | 에러 체크 |
+| :GoImport fmt | fmt package 추가 |
+| :GoImports | package 자동 추가 |
+| :GoDef | go 변수 정의 |
+| :GoDoc | go 문서 열람 |
+| :GoFmt | go 포맷 확인 |
+
+* Windows(추가예정)<br>
+* Go 도구<br>
+```text
+$ godoc fmt		// fmt package 문서 열람
+$ godoc fmt Printf	// fmt package 중에서 Printf 문서 열람
+$ godoc cmd/go		// cmd/go 하위 directory 열람
+$ godoc -src fmt	// fmt package의 소스 코드 열람
+$ godoc -src fmt Printf	// fmt package 중에서 Printf 소스 코드 열람
+$ godoc -q Reader	// Reader가 들어간 내용 검색
+$ godoc -http=:6060	// 웹 서버 구동
+http://localhost:6060/pkg/github.com/ryanjeong/go/seq/
+
+$ oracle(추가 예정)
+$ go tool vet github.com/ryanjeong/go/seq	// 소스 코드 검사
+$ go tool vet *.go				// 소스 코드 검사
+$ go tool fix github.com/ryanjeong/go/seq	// 옛 API 호출 등을 자동으로 수정, Go 버전 업그레이드될 때 한 번 실행
+$ go test github.com/ryanjeong/go/seq		// 테스트 수행
+
+
+```
 ## 컴파일<br>
 ```bash
 $ gofmt -w file.go
@@ -128,3 +207,5 @@ func facItr2(n int) int {
 	return result
 }
 ```
+## 참고자료
+[https://godoc.org](https://godoc.org)
