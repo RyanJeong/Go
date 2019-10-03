@@ -61,7 +61,8 @@ map <F8> :NERDTreeToggle<CR>
 map <F2> :GoDef<CR>
 map <F4> :TagbarToggle<CR>
 ```
-* vim-go 주요 기능
+* vim-go 주요 기능<br>
+
 | Command | 설명 |
 |:--------|:--------|
 | :GoRun | 코드 실행 |
@@ -74,6 +75,7 @@ map <F4> :TagbarToggle<CR>
 | :GoFmt | go 포맷 확인 |
 
 * Windows(추가예정)<br>
+
 * Go 도구<br>
 ```text
 $ godoc fmt		// fmt package 문서 열람
@@ -90,8 +92,6 @@ $ go tool vet github.com/ryanjeong/go/seq	// 소스 코드 검사
 $ go tool vet *.go				// 소스 코드 검사
 $ go tool fix github.com/ryanjeong/go/seq	// 옛 API 호출 등을 자동으로 수정, Go 버전 업그레이드될 때 한 번 실행
 $ go test github.com/ryanjeong/go/seq		// 테스트 수행
-
-
 ```
 ## 컴파일<br>
 ```bash
