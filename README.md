@@ -85,13 +85,13 @@ $ godoc -src fmt	// fmt package의 소스 코드 열람
 $ godoc -src fmt Printf	// fmt package 중에서 Printf 소스 코드 열람
 $ godoc -q Reader	// Reader가 들어간 내용 검색
 $ godoc -http=:6060	// 웹 서버 구동
-http://localhost:6060/pkg/github.com/ryanjeong/go/seq/
+http://localhost:6060/pkg/github.com/ryanjeong/gogo/seq/
 
 $ oracle(추가 예정)
-$ go tool vet github.com/ryanjeong/go/seq	// 소스 코드 검사
+$ go tool vet github.com/ryanjeong/gogo/seq	// 소스 코드 검사
 $ go tool vet *.go				// 소스 코드 검사
-$ go tool fix github.com/ryanjeong/go/seq	// 옛 API 호출 등을 자동으로 수정, Go 버전 업그레이드될 때 한 번 실행
-$ go test github.com/ryanjeong/go/seq		// 테스트 수행
+$ go tool fix github.com/ryanjeong/gogo/seq	// 옛 API 호출 등을 자동으로 수정, Go 버전 업그레이드될 때 한 번 실행
+$ go test github.com/ryanjeong/gogo/seq		// 테스트 수행
 ```
 ## 컴파일<br>
 ```bash
