@@ -9,7 +9,7 @@ export GOPATH=$HOME/GO
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
-$ cd $GOPATH/src
+$ cd $GOPATH/src/github.com/username/go
 $ git init
 ```
 * Windows(추가예정)<br>
@@ -43,8 +43,23 @@ func main() {	// Main 함수
 	* Package 용도에 따라 main package 또는 library package로 사용할 수 있음<br>
 	* go install 명령을 사용하면 해당 directory를 main package로써 사용하겠다는 의미<br>
 	* 소스코드 내부에 import "directory"를 추가한다면 해당 directory를 library package로써 사용하겠다는 의미<br>
-		* library package 내부 함수들의 첫 글자가 대문자인 경우 다른 package에서 사용할 수 있고, 소문자인 경우 다른 package에서 사용할 수 없음<br>
+		* library package 내부 함수들의 첫 글자가 대문자인 경우 다른 package에서 사용할 수 있고, 소문자인 경우 다른 package에서 사용할 수 없음<br>	
+	* Package 이름은 소문자로 간결하게 작성하는 것이 원칙<br>
+		* util과 같이 너무 일반적인 이름이나 기본 library와 비슷한 이름은 피해서 작성<br>
 * Module: A module is a Go package that can be versioned, updated, and managed independently.<br>
+	* Library package는 일종의 module로써 사용
+	* 기본으로 제공되는 library들과 다른 library들을 서로 구분하기 위해, 아래와 같이 중간에 빈칸을 삽입<br>
+	* 이때, gofmt 명령을 사용할 경우 알파벳 순서로 정렬을 수행하는데, 아래와 같이 빈칸이 삽입되어 있으면 빈칸을 기준으로 따로 정렬 수행<br>
+```go
+import (
+	"a"
+	"b"
+	
+	"c"
+	"d"
+	"e"
+)
+```
 * 세미콜론(;)을 각 행의 끝에 붙이지 않는 것처럼 보이지만, 구문 분석기가 소스 코드를 분석하는 과정에서 특정 규칙을 기준으로 세미콜론을 붙임<br>
 	* ex) 함수의 여는 중괄호({)는 func 선언과 같은 줄에 있어야 함<br>
 
@@ -55,9 +70,15 @@ func main() {	// Main 함수
 ```go
 var x int	// 변수 x는 integer 자료형
 var arr [5]int	// 변수 arr는 크기가 5인 integer 배열 자료형
-func(int, int)	// 함수는 두 개의 integer 자료형 입력을 받음
-func(int) int	// 함수는 한 개의 integer 자료형 입력을 받아 integer 자료형의 값을 반환함
-func(int, func(int, int)) func(int) int	// 함수는 ...
+func(int, int) {
+	// 함수는 두 개의 integer 자료형 입력을 받음
+}
+func(int) int {
+	// 함수는 한 개의 integer 자료형 입력을 받아 integer 자료형의 값을 반환함
+}
+func(int, func(int, int)) func(int) int {
+	// 함수는 ...
+}
 var p *int	// 변수 p는 포인터이며 integer 자료형을 가리킴
 var x int = 10	// 변수 x는 integer 자료형이며, 값은 10으로 초기화
 var i = 10	// 변수 i는 integer 자료형(형추론)이며, 값은 10으로 초기화
