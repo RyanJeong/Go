@@ -36,7 +36,7 @@ $ apt-get install mercurial
 $ vim
 :GoInstallBinaries
 
-// 6. 자동완성 기능 추가
+// 6. 자동완성 기능 추가(오류 발견됨, vim-go: initializing gopls)
 $ apt-get install cmake
 $ apt-get install python-dev
 $ cd ~/.vim/bundle
