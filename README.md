@@ -9,15 +9,15 @@ export GOPATH=$HOME/GO
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
+$ mkdir -p $GOPATH/src/github.com/username/go
 $ cd $GOPATH/src/github.com/username/go
 $ git init
 
 // vim-go 설정
 // 1. pathogen 설치
-$ mkdir -p ~/.vim/autoload ~
-/.vim/bundle
+$ mkdir -p ~/.vim/autoload
 $ cd ~/.vim/autoload
-$ -curl -LSso pathogen.vim https://tpo.pe/pathogen.vim
+$ curl -LSso pathogen.vim https://tpo.pe/pathogen.vim
 
 // 2. .vimrc 파일 수정
 $ vi ~/.vimrc
@@ -26,6 +26,7 @@ syntax on
 filetype plugin indent on
 
 // 3. vim-go 설치
+$ mkdir -p  ~/.vim/bundle
 $ cd ~/.vim/bundle
 $ git clone https://github.com/fatih/vim-go.git
 
