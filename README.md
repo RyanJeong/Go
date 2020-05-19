@@ -5,7 +5,7 @@
 ```bash
 $ vi ~/.bashrc
 
-// 아래 세 줄 bashrc 하단에 추가
+# 아래 세 줄 bashrc 하단에 추가
 export GOPATH=$HOME/Go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
@@ -20,20 +20,42 @@ $ git init
 
 3. Go 코드 작성에 도움이 되는 툴 설정<br>
 
-> vim 플러그인들을 관리하는 패키지 매니저인 pathogen 설치<br>
+> Vundle(vim plugin manager) 설치<br>
 ```bash
-$ mkdir -p ~/.vim/autoload ~/.vim/bundle
-$ cd ~/.vim/autoload
-$ curl -LSso pathogen.vim https://tpo.pe/pathogen.vim
-```
->  vim 플러그인들을 관리하는 패키지 매니저인 pathogen 설치<br>
-```bash
+$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 $ vi ~/.vimrc
 
-// 아래 세 줄 vimrc 하단에 추가
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
+# 아래 내용 .vimrc 파일 하단에 추가
+" ========================== "
+
+" From here needed for YouCompleteMe
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 ```
 > vim-go 설치<br>
 ```bash
@@ -43,22 +65,26 @@ $ git clone https://github.com/fatih/vim-go.git
 ```
 > VCS(Version Control System)인 mercurial 설치<br>
 ```bash
-// 자세한 내용은 https://www.mercurial-scm.org/wiki/QuickStart 방문하여 참조할 것
+# 자세한 내용은 https://www.mercurial-scm.org/wiki/QuickStart 방문하여 참조할 것
 $ apt-get install mercurial
 ```
-> vim 실행 후 GoInstallBinaries 명령 실행<br>
+> vim 실행 후 PluginInstall 명령 실행<br>
 ```bash
 $ vim
-> :GoInstallBinaries
+> :PluginInstall
 ```
-> 자동완성 기능 추가<br>
+> 자동완성 기능 추가(YouCompleteMe)<br>
+* Ubuntu 환경에서 오류가 있어 동작하지 않음을 확인하였음. 업데이트를 통해 해당 내용을 수정할 예정
 ```bash
-$ apt-get install cmake
-$ apt-get install python-dev
-$ cd ~/.vim/bundle
-$ git clone https://github.com/Valloric/YouCompleteMe.git
-$ cd YouCompleteMe
-$ ./install.sh
+$ apt-get update
+$ apt-get install -y build-essential cmake
+$ apt-get install -y python-dev python3-dev
+$ git clone https://github.com/Valloric/YouCompleteMe ~/.vim/bundle/YouCompleteMe
+$ cd ~/.vim/bundle/YouCompleteMe
+$ git submodule update --init --recursive
+$ ~/.vim/bundle/YouCompleteMe/install.py
+
+# 자동완성 단축키는 ctrl + 'y'
 ```
 > TagBar 설치<br>
 ```bash
@@ -79,6 +105,59 @@ set ts=4
 map <F8> :NERDTreeToggle<CR>
 map <F2> :GoDef<CR>
 map <F4> :TagbarToggle<CR>
+```
+
+> NERDTreeToggle 기능 사용 중에, 아래와 같은 오류가 나타날 경우 대처 방안<br>
+```Text
+/root/.vim/bundle/nerdtree/syntax/nerdtree.vim 수행중 에러 발견:
+   3 줄:
+E121: 정의 안 된 변수: g:NERDTreeGlyphReadOnly
+E15: 잘못된 표현식: 'syn match NERDTreeIgnore #\['.g:NERDTreeGlyphReadOnly.'\]#'
+  25 줄:
+E121: 정의 안 된 변수: g:NERDTreeDirArrowCollapsible
+E116: 함수 escape(g:NERDTreeDirArrowCollapsible, '~') . '\ze .*/# containedin=NERDTreeDir,NERDTreeFile'(으)로 잘못된 인자>
+가 넘겨졌습니다
+E15: 잘못된 표현식: 'syn match NERDTreeClosable #' . escape(g:NERDTreeDirArrowCollapsible, '~') . '\ze .*/# containedin=NE
+RDTreeDir,NERDTreeFile'
+  26 줄:
+E121: 정의 안 된 변수: g:NERDTreeDirArrowExpandable
+E116: 함수 escape(g:NERDTreeDirArrowExpandable, '~') . '\ze .*/# containedin=NERDTreeDir,NERDTreeFile'(으)로 잘못된 인자가
+ 넘겨졌습니다
+E15: 잘못된 표현식: 'syn match NERDTreeOpenable #' . escape(g:NERDTreeDirArrowExpandable, '~') . '\ze .*/# containedin=NER
+DTreeDir,NERDTreeFile'
+  28 줄:
+E121: 정의 안 된 변수: g:NERDTreeDirArrowCollapsible
+E116: 함수 escape(g:NERDTreeDirArrowCollapsible, '~]\-').escape(g:NERDTreeDirArrowExpandable, '~]\-')(으)로 잘못된 인자가 
+넘겨졌습니다
+E15: 잘못된 표현식: escape(g:NERDTreeDirArrowCollapsible, '~]\-').escape(g:NERDTreeDirArrowExpandable, '~]\-')
+  29 줄:
+E121: 정의 안 된 변수: s:dirArrows
+E15: 잘못된 표현식: 'syn match NERDTreeDir #[^'.s:dirArrows.' ].*/#'
+  31 줄:
+E121: 정의 안 된 변수: s:dirArrows
+E15: 잘못된 표현식: 'syn match NERDTreeFile  #^[^"\.'.s:dirArrows.'] *[^'.s:dirArrows.']*# contains=NERDTreeLink,NERDTreeR
+O,NERDTreeBookmark,NERDTreeExecFile'
+  34 줄:
+E121: 정의 안 된 변수: g:NERDTreeGlyphReadOnly
+E15: 잘못된 표현식: 'syn match NERDTreeRO # *\zs.*\ze \['.g:NERDTreeGlyphReadOnly.'\]# contains=NERDTreeIgnore,NERDTreeBoo
+kmark,NERDTreeFile'
+  41 줄:
+E121: 정의 안 된 변수: g:NERDTreeNodeDelimiter
+E116: 함수 char2nr(g:NERDTreeNodeDelimiter) . '# conceal containedin=ALL'(으)로 잘못된 인자가 넘겨졌습니다
+E15: 잘못된 표현식: 'syn match NERDTreeNodeDelimiters #\%d' . char2nr(g:NERDTreeNodeDelimiter) . '# conceal containedin=AL
+L'
+계속하려면 엔터 혹은 명령을 입력하십시오
+```
+```Bash
+$ vi ~/.vimrc
+
+# 하단에 추가
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeGlyphReadOnly = "RO"
+let g:NERDTreeWinSize = 40
+let NERDTreeNodeDelimiter = "\t"
 ```
 
 * vim-go 주요 기능<br>
@@ -113,6 +192,104 @@ $ go tool vet *.go				// 소스 코드 검사
 $ go tool fix github.com/ryanjeong/gogo/seq	// 옛 API 호출 등을 자동으로 수정, Go 버전 업그레이드될 때 한 번 실행
 $ go test github.com/ryanjeong/gogo/seq		// 테스트 수행
 ```
+
+## Workspace<br>
+*	Workspace($GOPATH)는 세 개의 하위 디렉토리를 포함하는 계층 구조를 나타냄<br>
+	*	src<br>
+		*	Go 소스 파일들을 보관하는 디렉토리<br>
+	*	lib<br>
+		*	패키지 객체들을 보관하는 디렉토리<br>
+	*	bin<br>
+		*	실행 가능한 바이너리 파일들을 보관하는 디렉토리<br>
+
+*	go tool은 소스 패키지를 빌드한 결과들을 pkg 디렉토리와 bin 디렉토리에 저장함<br>
+*	src 내부에 보관되는 디렉토리는 보통 여러 개의 버전 관리 저장소(git 또는 Mercurial과 같은)들을 포함함<br>
+*	Workspace 내부에 어떠한 형태로 디렉토리가 관리되는지 보여주는 예:
+```Text
+$ cd $GOPATH
+~/Go
+
+$ tree bin
+bin
+├── authtest
+├── benchcmp
+...
+├── stringer
+└── toolstash
+
+$ tree pkg
+pkg
+└── linux_amd64
+    └── golang.org
+        └── x
+            └── tools
+                └── cmd
+                    ├── guru
+                    │   └── serial.a
+                    └── splitdwarf
+                        └── internal
+                            └── macho.a
+
+$ tree src
+src
+├── github.com
+│   └── ryanjeong
+│       └── go
+├── golang.org
+│   └── x
+│       ├── lint
+│       │   ├── ...
+│       │   └── ...
+│       ├── mod
+│       │   ├── ...
+│       │   └── ...
+│       ├── net
+│       │   ├── ...
+│       │   └── ...
+│       ├── tools
+│       │   ├── ...
+│       │   └── ...
+│       └── xerrors
+│           ├── ...
+│           └── ...
+└── honnef.co
+    └── go
+        └── tools
+				├── LICENSE
+        ├── LICENSE-THIRD-PARTY
+        ├── README.md
+        ├── _benchmarks
+        │   ├── bench.sh
+        │   └── silent-staticcheck.sh
+        ├── analysis
+        │   ├── code
+        │   │   ├── code.go
+        │   │   ├── loops.go
+        │   │   ├── stub.go
+        │   │   ├── terminates.go
+        │   │   └── visit.go
+        │   ├── edit
+        │   │   └── edit.go
+        │   ├── facts
+        │   │   ├── deprecated.go
+        │   │   ├── directives.go
+        │   │   ├── facts_test.go
+        │   │   ├── generated.go
+        │   │   ├── purity.go
+        │   │   ├── testdata
+        │   │   │   └── src
+        │   │   │       ├── Deprecated
+        │   │   │       │   └── Deprecated.go
+        │   │   │       └── Purity
+        │   │   │           └── CheckPureFunctions.go
+        │   │   └── token.go
+        │   ├── lint
+        │   │   └── lint.go
+        │   └── report
+        │       └── report.go
+        ...
+```
+
 ## 컴파일<br>
 ```bash
 $ gofmt -w file.go
