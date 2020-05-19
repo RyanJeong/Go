@@ -1,60 +1,78 @@
 # Go
 ## 환경설정<br>
 * Ubuntu<br>
+1. .bashrc 설정
 ```bash
 $ vi ~/.bashrc
 
 // 아래 세 줄 bashrc 하단에 추가
-export GOPATH=$HOME/GO
+export GOPATH=$HOME/Go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+```
 
+2. workspace 설정
+```bash
 $ mkdir -p $GOPATH/src/github.com/username/go
 $ cd $GOPATH/src/github.com/username/go
 $ git init
+```
 
-// vim-go 설정
-// 1. pathogen 설치
-$ mkdir -p ~/.vim/autoload
+3. Go 코드 작성에 도움이 되는 툴 설정<br>
+
+> vim 플러그인들을 관리하는 패키지 매니저인 pathogen 설치<br>
+```bash
+$ mkdir -p ~/.vim/autoload ~/.vim/bundle
 $ cd ~/.vim/autoload
 $ curl -LSso pathogen.vim https://tpo.pe/pathogen.vim
-
-// 2. .vimrc 파일 수정
+```
+>  vim 플러그인들을 관리하는 패키지 매니저인 pathogen 설치<br>
+```bash
 $ vi ~/.vimrc
+
+// 아래 세 줄 vimrc 하단에 추가
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
-
-// 3. vim-go 설치
+```
+> vim-go 설치<br>
+```bash
 $ mkdir -p  ~/.vim/bundle
 $ cd ~/.vim/bundle
 $ git clone https://github.com/fatih/vim-go.git
-
-// 4. mercurial 설치
+```
+> VCS(Version Control System)인 mercurial 설치<br>
+```bash
+// 자세한 내용은 https://www.mercurial-scm.org/wiki/QuickStart 방문하여 참조할 것
 $ apt-get install mercurial
-
-// 5. vim 실행 후 :GoInstallBinaries 수행
+```
+> vim 실행 후 GoInstallBinaries 명령 실행<br>
+```bash
 $ vim
-:GoInstallBinaries
-
-// 6. 자동완성 기능 추가(오류 발견됨, vim-go: initializing gopls)
+> :GoInstallBinaries
+```
+> 자동완성 기능 추가<br>
+```bash
 $ apt-get install cmake
 $ apt-get install python-dev
 $ cd ~/.vim/bundle
 $ git clone https://github.com/Valloric/YouCompleteMe.git
 $ cd YouCompleteMe
 $ ./install.sh
-
-// 7. TagBar 설치
+```
+> TagBar 설치<br>
+```bash
 $ apt-get install ctags
 $ cd ~/.vim/bundle
 $ git clone https://github.com/majutsushi/tagbar.git
-
-// 8. 파일 네비게이션 설정
+```
+> 파일 네비게이션 설정<br>
+```bash
 $ cd ~/.vim/bundle
 $ git clone https://github.com/scrooloose/nerdtree.git 
-
-// 9. 단축키 지정
+```
+> 단축키 지정<br>
+```bash
 $ vi ~/.vimrc
 set ts=4
  
@@ -62,6 +80,7 @@ map <F8> :NERDTreeToggle<CR>
 map <F2> :GoDef<CR>
 map <F4> :TagbarToggle<CR>
 ```
+
 * vim-go 주요 기능<br>
 
 | Command | 설명 |
