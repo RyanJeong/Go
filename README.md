@@ -22,7 +22,7 @@ $ git init
 
 > vim 플러그인들을 관리하는 패키지 매니저인 pathogen 설치<br>
 ```bash
-$ mkdir -p ~/.vim/autoload ~/.vim/bundle
+$ mkdir -p ~/.vim/autoload
 $ cd ~/.vim/autoload
 $ curl -LSso pathogen.vim https://tpo.pe/pathogen.vim
 
