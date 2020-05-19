@@ -20,42 +20,18 @@ $ git init
 
 3. Go 코드 작성에 도움이 되는 툴 설정<br>
 
-> Vundle(vim plugin manager) 설치<br>
+> vim 플러그인들을 관리하는 패키지 매니저인 pathogen 설치<br>
 ```bash
-$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+$ mkdir -p ~/.vim/autoload ~/.vim/bundle
+$ cd ~/.vim/autoload
+$ curl -LSso pathogen.vim https://tpo.pe/pathogen.vim
+
 $ vi ~/.vimrc
 
-# 아래 내용 .vimrc 파일 하단에 추가
-" ========================== "
-
-" From here needed for YouCompleteMe
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+// 아래 세 줄 vimrc 하단에 추가
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
 ```
 > vim-go 설치<br>
 ```bash
@@ -65,13 +41,13 @@ $ git clone https://github.com/fatih/vim-go.git
 ```
 > VCS(Version Control System)인 mercurial 설치<br>
 ```bash
-# 자세한 내용은 https://www.mercurial-scm.org/wiki/QuickStart 방문하여 참조할 것
+// 자세한 내용은 https://www.mercurial-scm.org/wiki/QuickStart 방문하여 참조할 것
 $ apt-get install mercurial
 ```
-> vim 실행 후 PluginInstall 명령 실행<br>
+> vim 실행 후 GoInstallBinaries 명령 실행<br>
 ```bash
 $ vim
-> :PluginInstall
+> :GoInstallBinaries
 ```
 > 자동완성 기능 추가(YouCompleteMe)<br>
 * Ubuntu 환경에서 오류가 있어 동작하지 않음을 확인하였음. 업데이트를 통해 해당 내용을 수정할 예정
