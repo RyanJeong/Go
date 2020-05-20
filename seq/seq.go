@@ -10,4 +10,3 @@ func Fib(n int) int {
 
 	return p
 }
-

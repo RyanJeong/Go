@@ -276,10 +276,21 @@ $ goimports -w file.go
 ```
 * 작성한 파일에 필요한 Module을 소스 코드 상단에 추가함<br>
 ```bash
-$ go get URL		// add dependencies to current module and install them
-$ go install URL	// compile and install packages and dependencies
-$ go run file.go	// compile and run Go program
+# Add dependencies to current module and install them.
+# Get downloads the packages named by the import paths,
+#   along with their dependencies. It then installs the
+#   named packages, like go install. 
+$ go get URL		
+
+# Compile and install packages and dependencies.
+$ go install URL	
+
+# Compile and run Go program.
+$ go run file.go	
 ```
+
+* Go에서 컴파일을 시도할 경우, $GOROOT, $GOPATH 순으로 컴파일에 필요한 패키지를 찾는다.<br>
+    * When the go command is looking for packages, it always looks in $GOROOT first.<br>
 
 ## 기본 구조<br>
 ```go
