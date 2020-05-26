@@ -135,6 +135,11 @@ let g:NERDTreeGlyphReadOnly = "RO"
 let g:NERDTreeWinSize = 40
 let NERDTreeNodeDelimiter = "\t"
 ```
+> Gotags 관련 오류 발생 시
+```Bash
+# vim-go could not find 'gotags'
+$ go get -u github.com/jstemmer/gotags
+```
 
 * vim-go 주요 기능<br>
 

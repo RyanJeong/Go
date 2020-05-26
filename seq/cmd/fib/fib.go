@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/RyanJeong/Go/seq"
+	"github.com/ryanjeong/go/seq"
 )
 
 func main() {
