@@ -1,3 +1,4 @@
+```Go
 // Golang does not have any data type of ‘char‘. Therefore
 //
 // *   'byte' is used to represent the ASCII character. byte is an alias for uint8,
@@ -7,7 +8,7 @@
 // *   A string of one length can also be used to represent a character implicitly.
 //   The size of one character string will depend upon the encoding of that character.
 //   For utf-8 encoding, it will be between 1-4 bytes
-package stack
+package eval
 
 import (
 	"strconv"
@@ -65,14 +66,17 @@ func Eval(expr string) int {
 			ops = append(ops, token)
 		case "*", "/":
 			// 곱셈과 나눗셈 이상의 우선순위를 가진 것은 둘 뿐
-			reduce("%/")
+			reduce("*/")
 			ops = append(ops, token)
 		case ")":
+			reduce("*/")
+		default:
 			num, _ := strconv.Atoi(token)
 			nums = append(nums, num)
 		}
 	}
-	reduce("+_*/")
+	reduce("+-*/")
 
 	return nums[0]
 }
+```
