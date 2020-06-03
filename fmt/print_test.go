@@ -19,7 +19,8 @@ func ExampleFunctions_print() {
 
 	// Output:
 	// [1 2 3] [4 5 6]
-	// [1 2 3] [4 5 6][1 2 3][4 5 6][1 2 3] [4 5 6]
+	// STR1 STR2
+	// [1 2 3] [4 5 6]STR1STR2[1 2 3][4 5 6]STR1STR2[1 2 3] [4 5 6]STR1 STR2
 
 	return
 }
