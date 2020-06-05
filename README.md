@@ -397,6 +397,6 @@ func facItr2(n int) int {
 }
 ```
 ## 참고자료
-[https://godoc.org](https://godoc.org)
-[https://golang.org/doc/effective_go.html](https://golang.org/doc/effective_go.html)
-[https://golang.org/pkg/](https://golang.org/pkg/)
+[https://godoc.org](https://godoc.org)<br>
+[https://golang.org/doc/effective_go.html](https://golang.org/doc/effective_go.html)<br>
+[https://golang.org/pkg/](https://golang.org/pkg/)<br>
