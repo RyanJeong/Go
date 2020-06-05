@@ -1,3 +1,4 @@
+```Go
 package count
 
 import (
@@ -33,3 +34,4 @@ func ExampleCount() {
 
 	return
 }
+```

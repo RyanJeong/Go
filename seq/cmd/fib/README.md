@@ -1,3 +1,4 @@
+```Go
 package main
 
 import (
@@ -9,3 +10,4 @@ import (
 func main() {
 	fmt.Println(seq.Fib(6))
 }
+```

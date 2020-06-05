@@ -1,3 +1,4 @@
+```Go
 package Func_Literal
 
 import "fmt"
@@ -22,3 +23,4 @@ func Example_funcLiteralVar() {
 
 	return
 }
+```
