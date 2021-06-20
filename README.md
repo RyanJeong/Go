@@ -55,7 +55,7 @@ $ vim
 $ apt-get update
 $ apt-get install -y build-essential cmake
 $ apt-get install -y python-dev python3-dev
-$ git clone https://github.com/Valloric/YouCompleteMe ~/.vim/bundle/YouCompleteMe
+$ git clone https://github.com/Valloric/YouCompleteMe
 $ cd ~/.vim/bundle/YouCompleteMe
 $ git submodule update --init --recursive
 $ ~/.vim/bundle/YouCompleteMe/install.py
