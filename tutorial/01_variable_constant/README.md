@@ -48,6 +48,22 @@ var s = "Go" // variable s is string type
 i := 1
 ```
 
+* 여러 개의 변수를 `:=`를 사용한 예
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var i, j int = 1, 2
+    k := 3
+    c, python, java := true, false, "no!"
+
+    fmt.Println(i, j, k, c, python, java)
+}
+```
+
 * Go 언어에서는 변수를 선언하고 한 번도 사용하지 않으면 <b>오류</b>가 발생함
 
 * 변수 선언 시 초기치가 생략되어 있다면 자동으로 초기화 수행

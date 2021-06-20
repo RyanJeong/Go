@@ -41,4 +41,22 @@ func main() {
 		msg = "Invalid"
 	}
 	fmt.Println(msg)
+
+	switchTest(2)
+}
+
+func switchTest(val int) {
+	switch val {
+	case 1:
+		fmt.Println("AB")
+		fallthrough
+	case 2:
+		fmt.Println("CD")
+		fallthrough
+	case 3:
+		fmt.Println("EF")
+		fallthrough
+	default:
+		fmt.Println("GH")
+	}
 }
