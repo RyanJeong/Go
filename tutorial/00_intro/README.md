@@ -128,9 +128,13 @@ func main() {   // Main 함수
 ```
 ### Package
 #### In the most basic terms, A package is nothing but a directory inside your Go workspace containing one or more Go source files, or other Go packages.
+* 모든 Go 프로그램은 패키지로 생성됨
+* `main` 패키지는 실행 프로그램을 가리킴
+* 패키지명이 `main`인 Go 파일 내 존재하는 `main()`이 프로그램의 시작점
+* 컴파일러는 `main` 패키지를 실행 프로그램으로 변환
 * Package 용도에 따라 main package 또는 library package로 사용할 수 있음
-* go install 명령을 사용하면 해당 directory를 main package로써 사용하겠다는 의미
-* 소스코드 내부에 import "directory"를 추가한다면 해당 directory를 library package로써 사용하겠다는 의미
+* `go install` 명령을 사용하면 해당 directory를 main package로써 사용하겠다는 의미
+* 소스코드 내부에 `import` "directory"를 추가한다면 해당 directory를 library package로써 사용하겠다는 의미
     * library package 내부 함수들의 첫 글자가 대문자인 경우 다른 package에서 사용할 수 있고, 소문자인 경우 다른 package에서 사용할 수 없음
 * Package 이름은 소문자로 간결하게 작성하는 것이 원칙
     * util과 같이 너무 일반적인 이름 또는 기본 library와 비슷한 이름은 피해야 함 
@@ -138,7 +142,10 @@ func main() {   // Main 함수
 ### Module
 #### A module is a Go package that can be versioned, updated, and managed independently.
 * Library package는 일종의 module로써 사용
-* 기본으로 제공되는 library들과 다른 library들을 서로 구분하기 위해, 아래와 같이 중간에 빈칸을 삽입
+* 기본으로 제공되는 library(library package)들과 다른 library들을 서로 구분하기 위해, 아래와 같이 중간에 빈칸을 삽입
+* 다른 프로그램에서 library를 사용하고자 할 때, Go 컴파일러는 GOROOT/pkg에 해당 library가 존재하는지 확인
+* GOROOT/pkg 내에는 Go 언어에서 기본으로 제공하는 library들이 들어있으며, 만약 해당 경로에 사용하고자 하는 library가 없을 경우 GOPATH/pkg 탐색
+* GOPATH/pkg 내에는 3rd-party library들이 들어있음
 * 이때, gofmt 명령을 사용할 경우 알파벳 순서로 정렬을 수행하는데, 아래와 같이 빈칸이 삽입되어 있으면 빈칸을 기준으로 따로 정렬 수행
 
 ```go
@@ -151,5 +158,119 @@ import (
     "e"
 )
 ```
+
+* Library package에서 이름이 대문자로 시작하는 경우, 다른 패키지에서 접근해 사용할 수 있음
+    * Package scope 규칙에 의해 동작
+    * 이름(identifier)이 대문자로 시작한다면, 이는 `public` 객체임
+    * 이름(identifier)이 소문자로 시작한다면, 이는 `non-public` 객체임
+     
+```go
+package main
+
+import (
+    "fmt"
+    "math/rand"
+)
+
+func main() {
+    fmt.Println("My favorite number is", rand.Intn(10)) // math/rand 패키지의 Init() 함수 호출
+}
+```
+
+#### `math` 패키지 안에 정의된 Pi 변수를 사용하고자 할 때, 아래와 같이 사용하면 오류 발생
+
+```go
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func main() {
+    fmt.Println(math.pi) // error, rename math.pi to math.Pi
+}
+```
+
+* library는 `import`됨과 동시에 초기화할 수 있음
+
+```go
+package testlib
+ 
+var pop map[string]string
+ 
+func init() {   // Init. when the package importing
+    pop = make(map[string]string)
+}
+```
+
+* `import ALIAS library` 형태로 추가될 library에 별명을 사용할 수 있음
+* library 자체를 main package에 가져와 사용할 경우 library 안에 있는 이름이 서로 충돌할 수 있음
+* 이름을 서로 구분하기 위해 별명을 사용해서 해당 library를 세분할 수 있음
+
+```go
+import (
+    mongo "other/mongo/db"
+    mysql "other/mysql/db"
+)
+func main() {
+    mondb := mongo.Get()
+    mydb := mysql.Get()
+    //...
+}
+```
+
+* 만약 library의 초기화 함수만 사용하는 것을 원하고, 그 이후에는 해당 library가 필요 없을 경우 아래와 같이 사용할 수 있음
+
+```go
+package main
+import _ "testlib"
+```
+
+* 패키지 사용 예
+##### main.go
+
+```go
+package main
+
+import "testlib"
+
+func main() {
+    song := testlib.GetMusic("Metalica")
+    println(song)
+}
+```
+
+##### testlib/testlib.go
+```go
+// 1. mv testlib $GOPATH/src
+// 2. go build testlib
+// 3. go install testlib
+package testlib
+
+import "fmt"
+
+var rock map[string]string
+
+func init() {
+    rock = make(map[string]string)
+    rock["Muse"] = "Time Is Running Out"
+    rock["Metalica"] = "Master of Puppets"
+    rock["Green Day"] = "Basket Case"
+}
+
+// public
+func GetMusic(artist string) string {
+    return rock[artist]
+}
+
+// non-public
+func getKeys() {
+    for _, v := range rock {
+        fmt.Println(v)
+    }
+}
+```
+
 ### 세미콜론`;`을 각 행의 끝에 붙이지 않는 것처럼 보이지만, 구문 분석기가 소스 코드를 분석하는 과정에서 특정 규칙을 기준으로 세미콜론을 붙임
 * ex) 함수의 여는 중괄호`{`는 `func` 선언과 같은 줄에 있어야 함

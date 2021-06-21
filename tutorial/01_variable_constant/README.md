@@ -40,7 +40,7 @@ var i = 1 // variable i is int type
 var s = "Go" // variable s is string type
 ```
 
-* Go 언어는 short assignment statement `:=`를 지원하며, 변수 선언을 아래와 같이 간결히 표현할 수 있음
+* Go 언어는 short assignment statement `:=`를 지원하며, 변수 선언을 아래와 같이 간결하게 표현할 수 있음
     * 타입 추론이 가능하다는 특징을 확장해 간결한 연산을 지원
     * short assignment statement는 <b>함수 내에서만 사용 가능</b>하며, 함수 밖에서 변수를 선언하고자 할 경우 `var`을 꼭 사용해야 함
 
